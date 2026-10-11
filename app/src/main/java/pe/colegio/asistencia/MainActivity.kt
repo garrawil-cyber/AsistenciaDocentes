@@ -62,6 +62,7 @@ fun AppNavigation() {
 
     val username by session.usernameFlow.collectAsState(initial = "")
     val nombreCompleto by session.nombreCompletoFlow.collectAsState(initial = null)
+    val rol by session.rolFlow.collectAsState(initial = "")
     var mensajeResultado by remember { mutableStateOf<String?>(null) }
 
     // SplashViewModel para verificar sesión
@@ -111,6 +112,7 @@ fun AppNavigation() {
             HomeScreen(
                 username = username ?: "Docente",
                 nombreCompleto = nombreCompleto,    // ← NUEVO
+                rol = rol ?: "docente",
                 mensaje = mensajeResultado,
                 onMensajeConsumido = { mensajeResultado = null },
                 onMarcarAsistencia = {

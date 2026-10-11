@@ -38,6 +38,7 @@ import java.util.Locale
 fun HomeScreen(
     username: String,
     nombreCompleto: String?,
+    rol: String,
     mensaje: String? = null,
     onMensajeConsumido: () -> Unit = {},
     onMarcarAsistencia: () -> Unit,
@@ -53,7 +54,7 @@ fun HomeScreen(
         }
     }
 
-    // Nombre a mostrar: nombre completo si existe, si no el username
+    // Nombre a mostrar
     val nombreDisplay = nombreCompleto?.takeIf { it.isNotBlank() } ?: username
 
     // Iniciales para el avatar
@@ -81,6 +82,9 @@ fun HomeScreen(
         formato.format(Calendar.getInstance().time)
             .replaceFirstChar { it.uppercase() }
     }
+
+    // ¿Es docente?
+    val esDocente = rol.equals("docente", ignoreCase = true)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -146,9 +150,9 @@ fun HomeScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(40.dp))
 
-            // ===== Acciones principales =====
+            // ===== Sección de acciones (según rol) =====
             Text(
                 text = "ACCIONES",
                 style = MaterialTheme.typography.labelLarge,
@@ -159,30 +163,68 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Button(
-                onClick = onMarcarAsistencia,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(64.dp),
-                shape = RoundedCornerShape(14.dp)
-            ) {
-                Text(
-                    "📷  Marcar Asistencia",
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
+            if (esDocente) {
+                // ===== Vista para DOCENTES =====
+                Button(
+                    onClick = onMarcarAsistencia,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(64.dp),
+                    shape = RoundedCornerShape(14.dp)
+                ) {
+                    Text(
+                        "📷  Marcar Asistencia",
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
 
-            Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedButton(
-                onClick = onVerHistorial,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp),
-                shape = RoundedCornerShape(14.dp)
-            ) {
-                Text("📋  Ver Historial", fontSize = 16.sp)
+                OutlinedButton(
+                    onClick = onVerHistorial,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp),
+                    shape = RoundedCornerShape(14.dp)
+                ) {
+                    Text("📋  Ver Historial", fontSize = 16.sp)
+                }
+
+            } else {
+                // ===== Vista para ADMIN / COORDINADOR =====
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            shape = RoundedCornerShape(14.dp)
+                        )
+                        .padding(20.dp)
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Text(
+                            text = "ℹ️  Sesión iniciada como ${rol.replaceFirstChar { it.uppercase() }}",
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "Para gestionar docentes, reportes, justificaciones y más, accede al Panel Admin desde tu navegador web.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            lineHeight = 20.sp
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "🌐  192.168.0.19/asistencia-api/admin/",
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 13.sp
+                        )
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.weight(1f))
