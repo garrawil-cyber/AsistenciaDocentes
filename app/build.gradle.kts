@@ -37,6 +37,9 @@ android {
 }
 
 dependencies {
+    // ==========================================
+    // Compose (usa el BOM para versiones)
+    // ==========================================
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
@@ -45,6 +48,16 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // ==========================================
+    // Iconos extendidos (ArrowBack, etc.)
+    // Sin versión → la hereda del BOM de Compose
+    // ==========================================
+    implementation("androidx.compose.material:material-icons-extended")
+
+    // ==========================================
+    // Testing
+    // ==========================================
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
@@ -53,35 +66,37 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    // Retrofit para HTTP
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    // ==========================================
+    // Retrofit + OkHttp (HTTP cliente)
+    // ==========================================
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    // OkHttp con logging (útil para debug)
-    implementation("com.squareup.okhttp3:okhttp:5.5.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.5.0")
-
+    // ==========================================
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
+    // ==========================================
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
 
+    // ==========================================
     // ViewModel + Lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.11.0")
-
-    // DataStore (para guardar el JWT)
-    implementation("androidx.datastore:datastore-preferences:1.2.1")
-
-    implementation("androidx.navigation:navigation-compose:2.10.2")
-
-    // Navigation Compose
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-
-    // Lifecycle ViewModel + Compose (ya lo tienes, pero confirmar)
+    // ==========================================
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
 
     // ==========================================
-    // CameraX (captura de video en vivo)
+    // DataStore (persistencia de JWT)
+    // ==========================================
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // ==========================================
+    // Navigation Compose
+    // ==========================================
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+
+    // ==========================================
+    // CameraX (cámara en vivo)
     // ==========================================
     val cameraxVersion = "1.4.0"
     implementation("androidx.camera:camera-core:$cameraxVersion")
@@ -90,14 +105,14 @@ dependencies {
     implementation("androidx.camera:camera-view:$cameraxVersion")
 
     // ==========================================
-    // ML Kit Barcode Scanning (lector de QR)
+    // ML Kit Barcode Scanning (lector QR)
     // ==========================================
     implementation("com.google.mlkit:barcode-scanning:17.3.0")
 
     // ==========================================
-    // Accompanist Permissions (para pedir permiso de cámara)
+    // Accompanist Permissions (permisos en Compose)
     // ==========================================
     implementation("com.google.accompanist:accompanist-permissions:0.36.0")
 
-}
+    }
 

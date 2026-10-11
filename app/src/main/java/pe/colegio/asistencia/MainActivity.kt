@@ -24,6 +24,7 @@ import pe.colegio.asistencia.ui.theme.AsistenciaDocentesTheme
 
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
+import pe.colegio.asistencia.ui.screens.HistorialScreen
 
 import pe.colegio.asistencia.ui.screens.QrScannerScreen
 
@@ -78,7 +79,9 @@ fun AppNavigation() {
                 onMarcarAsistencia = {
                     navController.navigate("scanner")
                 },
-                onVerHistorial = { },
+                onVerHistorial = {
+                    navController.navigate("historial")
+                },
                 onLogout = {
                     scope.launch { session.limpiarSesion() }
                     navController.navigate("login") {
@@ -96,6 +99,14 @@ fun AppNavigation() {
                     navController.popBackStack()
                 },
                 onCancelar = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("historial") {
+            HistorialScreen(
+                onVolver = {
                     navController.popBackStack()
                 }
             )
