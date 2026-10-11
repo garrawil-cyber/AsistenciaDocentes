@@ -25,8 +25,14 @@ import pe.colegio.asistencia.ui.theme.AsistenciaDocentesTheme
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import pe.colegio.asistencia.ui.screens.HistorialScreen
-
 import pe.colegio.asistencia.ui.screens.QrScannerScreen
+
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import pe.colegio.asistencia.ui.screens.SplashScreen
+import pe.colegio.asistencia.ui.viewmodel.SplashState
+import pe.colegio.asistencia.ui.viewmodel.SplashViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,14 +58,39 @@ fun AppNavigation() {
     val scope = rememberCoroutineScope()
 
     val username by session.usernameFlow.collectAsState(initial = "")
-
-    // ✅ Nuevo: mensaje para mostrar en el Home
     var mensajeResultado by remember { mutableStateOf<String?>(null) }
+
+    // SplashViewModel para verificar sesión
+    val splashViewModel: SplashViewModel = viewModel()
+    val splashState by splashViewModel.estado.collectAsStateWithLifecycle()
 
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = "splash"   // ← Cambio: empieza en splash
     ) {
+        // ============ SPLASH ============
+        composable("splash") {
+            SplashScreen()
+
+            // Cuando termina de verificar → navegar
+            LaunchedEffect(splashState) {
+                when (splashState) {
+                    is SplashState.Autenticado -> {
+                        navController.navigate("home") {
+                            popUpTo("splash") { inclusive = true }
+                        }
+                    }
+                    is SplashState.NoAutenticado -> {
+                        navController.navigate("login") {
+                            popUpTo("splash") { inclusive = true }
+                        }
+                    }
+                    else -> { /* sigue en splash */ }
+                }
+            }
+        }
+
+        // ============ LOGIN ============
         composable("login") {
             LoginScreen(
                 onLoginExitoso = {
@@ -71,11 +102,12 @@ fun AppNavigation() {
             )
         }
 
+        // ============ HOME ============
         composable("home") {
             HomeScreen(
                 username = username ?: "Docente",
-                mensaje = mensajeResultado,                      // ← NUEVO
-                onMensajeConsumido = { mensajeResultado = null }, // ← NUEVO
+                mensaje = mensajeResultado,
+                onMensajeConsumido = { mensajeResultado = null },
                 onMarcarAsistencia = {
                     navController.navigate("scanner")
                 },
@@ -83,7 +115,9 @@ fun AppNavigation() {
                     navController.navigate("historial")
                 },
                 onLogout = {
-                    scope.launch { session.limpiarSesion() }
+                    scope.launch {
+                        session.limpiarSesion()
+                    }
                     navController.navigate("login") {
                         popUpTo(0) { inclusive = true }
                         launchSingleTop = true
@@ -92,10 +126,11 @@ fun AppNavigation() {
             )
         }
 
+        // ============ SCANNER QR ============
         composable("scanner") {
             QrScannerScreen(
                 onResultado = { mensaje ->
-                    mensajeResultado = mensaje       // ← guardar
+                    mensajeResultado = mensaje
                     navController.popBackStack()
                 },
                 onCancelar = {
@@ -104,6 +139,7 @@ fun AppNavigation() {
             )
         }
 
+        // ============ HISTORIAL ============
         composable("historial") {
             HistorialScreen(
                 onVolver = {
@@ -111,6 +147,5 @@ fun AppNavigation() {
                 }
             )
         }
-
     }
 }

@@ -10,37 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cd34372-e2a9-41a2-baf8-7316aca2c68b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/model/HistorialResponse.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/screens/HistorialScreen.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/HistorialViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/kotlin-dsl-plugin-entries/kotlin-dsl-plugin-entries.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/kotlin-dsl-plugin-entries/kotlin-dsl-plugin-entries.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/.globals.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/.strings.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/_app.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/buildfingerprint.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/classloaderscopes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/entry.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/projectfingerprint.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/16a49a3f-deaa-4718-bf59-b5e8441d8921/work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/c9r7nwyfwqatay5vf56qugqme/candidates.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/configuration-cache/c9r7nwyfwqatay5vf56qugqme/candidates.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/screens/SplashScreen.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/SplashViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/api/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/api/ApiService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AsistenciaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AsistenciaRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AuthRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AuthRepository.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

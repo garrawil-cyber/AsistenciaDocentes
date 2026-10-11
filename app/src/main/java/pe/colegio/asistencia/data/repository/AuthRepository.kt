@@ -3,6 +3,7 @@ package pe.colegio.asistencia.data.repository
 import pe.colegio.asistencia.data.api.RetrofitClient
 import pe.colegio.asistencia.data.model.LoginRequest
 import pe.colegio.asistencia.data.model.LoginResponse
+import retrofit2.HttpException
 
 class AuthRepository {
 
@@ -20,4 +21,25 @@ class AuthRepository {
             Result.failure(e)
         }
     }
+
+    /**
+     * Verifica si el token guardado sigue siendo válido.
+     * Llama al endpoint /auth/me con el JWT.
+     */
+    suspend fun verificarSesion(jwt: String): Result<Boolean> {
+        return try {
+            val response = api.me("Bearer $jwt")
+            if (response.success) {
+                Result.success(true)
+            } else {
+                Result.failure(Exception("Token inválido"))
+            }
+        } catch (e: HttpException) {
+            // 401 = token expirado/revocado
+            Result.failure(Exception("Token expirado"))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }
