@@ -59,7 +59,8 @@ class LoginViewModel(app: Application) : AndroidViewModel(app) {
                             token = data.token,
                             username = data.usuario.username,
                             rol = data.usuario.rol,
-                            docenteId = data.usuario.docenteId
+                            docenteId = data.usuario.docenteId,
+                            nombreCompleto = data.usuario.nombreCompleto   // ← NUEVO
                         )
                         _uiState.update {
                             it.copy(cargando = false, loginExitoso = true)

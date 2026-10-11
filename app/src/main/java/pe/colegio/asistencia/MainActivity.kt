@@ -61,6 +61,7 @@ fun AppNavigation() {
     val scope = rememberCoroutineScope()
 
     val username by session.usernameFlow.collectAsState(initial = "")
+    val nombreCompleto by session.nombreCompletoFlow.collectAsState(initial = null)
     var mensajeResultado by remember { mutableStateOf<String?>(null) }
 
     // SplashViewModel para verificar sesión
@@ -109,6 +110,7 @@ fun AppNavigation() {
         composable("home") {
             HomeScreen(
                 username = username ?: "Docente",
+                nombreCompleto = nombreCompleto,    // ← NUEVO
                 mensaje = mensajeResultado,
                 onMensajeConsumido = { mensajeResultado = null },
                 onMarcarAsistencia = {

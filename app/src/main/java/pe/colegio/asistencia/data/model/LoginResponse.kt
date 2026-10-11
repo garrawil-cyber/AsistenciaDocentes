@@ -1,7 +1,5 @@
 package pe.colegio.asistencia.data.model
 
-
-
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponse(
@@ -20,5 +18,7 @@ data class UsuarioData(
     val username: String,
     val rol: String,
     @SerializedName("docente_id")
-    val docenteId: Int?
+    val docenteId: Int?,
+    @SerializedName("nombre_completo")
+    val nombreCompleto: String?
 )
