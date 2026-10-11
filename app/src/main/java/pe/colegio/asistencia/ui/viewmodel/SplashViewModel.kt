@@ -49,7 +49,7 @@ class SplashViewModel(app: Application) : AndroidViewModel(app) {
 
                 // Verificar contra el backend
                 val repo = AuthRepository()
-                val resultado = repo.verificarSesion(token)
+                val resultado = repo.verificarSesion()
 
                 resultado.fold(
                     onSuccess = {

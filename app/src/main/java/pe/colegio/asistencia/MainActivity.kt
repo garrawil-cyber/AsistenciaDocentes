@@ -30,6 +30,7 @@ import pe.colegio.asistencia.ui.screens.QrScannerScreen
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import pe.colegio.asistencia.data.api.RetrofitClient
 import pe.colegio.asistencia.ui.screens.SplashScreen
 import pe.colegio.asistencia.ui.viewmodel.SplashState
 import pe.colegio.asistencia.ui.viewmodel.SplashViewModel
@@ -37,6 +38,8 @@ import pe.colegio.asistencia.ui.viewmodel.SplashViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // ⚠️ NUEVO: Inicializar RetrofitClient con el SessionManager
+        RetrofitClient.init(applicationContext)
         setContent {
             AsistenciaDocentesTheme {
                 Surface(

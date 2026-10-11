@@ -6,12 +6,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pe.colegio.asistencia.data.model.AsistenciaDia
 import pe.colegio.asistencia.data.repository.AsistenciaRepository
-import pe.colegio.asistencia.data.session.SessionManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -34,7 +32,6 @@ enum class RangoFecha(val label: String) {
 class HistorialViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repo = AsistenciaRepository()
-    private val session = SessionManager(app)
 
     private val _uiState = MutableStateFlow(HistorialUiState())
     val uiState: StateFlow<HistorialUiState> = _uiState.asStateFlow()
@@ -50,16 +47,8 @@ class HistorialViewModel(app: Application) : AndroidViewModel(app) {
 
         viewModelScope.launch {
             try {
-                val jwt = session.tokenFlow.first()
-                if (jwt.isNullOrEmpty()) {
-                    _uiState.update {
-                        it.copy(cargando = false, error = "Sesión expirada. Vuelve a iniciar sesión.")
-                    }
-                    return@launch
-                }
-
                 val (desde, hasta) = calcularRango(rango)
-                val result = repo.historial(desde, hasta, jwt)
+                val result = repo.historial(desde, hasta)
 
                 result.fold(
                     onSuccess = { response ->

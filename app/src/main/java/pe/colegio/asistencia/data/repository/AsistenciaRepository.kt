@@ -12,12 +12,9 @@ class AsistenciaRepository {
     private val api = RetrofitClient.api
     private val gson = Gson()
 
-    suspend fun marcar(qrToken: String, jwt: String): Result<MarcarResponse> {
+    suspend fun marcar(qrToken: String): Result<MarcarResponse> {
         return try {
-            val response = api.marcar(
-                token = "Bearer $jwt",
-                request = MarcarRequest(qrToken)
-            )
+            val response = api.marcar(MarcarRequest(qrToken))
             if (response.success) {
                 Result.success(response)
             } else {
@@ -41,17 +38,9 @@ class AsistenciaRepository {
         }
     }
 
-    suspend fun historial(
-        desde: String,
-        hasta: String,
-        jwt: String
-    ): Result<HistorialResponse> {
+    suspend fun historial(desde: String, hasta: String): Result<HistorialResponse> {
         return try {
-            val response = api.historial(
-                token = "Bearer $jwt",
-                desde = desde,
-                hasta = hasta
-            )
+            val response = api.historial(desde, hasta)
             if (response.success) {
                 Result.success(response)
             } else {

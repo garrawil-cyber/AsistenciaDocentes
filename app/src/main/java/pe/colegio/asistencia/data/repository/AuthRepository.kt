@@ -23,23 +23,21 @@ class AuthRepository {
     }
 
     /**
-     * Verifica si el token guardado sigue siendo válido.
-     * Llama al endpoint /auth/me con el JWT.
+     * Verifica si el token guardado (en DataStore) sigue siendo válido.
+     * El Interceptor agrega automáticamente el Bearer.
      */
-    suspend fun verificarSesion(jwt: String): Result<Boolean> {
+    suspend fun verificarSesion(): Result<Boolean> {
         return try {
-            val response = api.me("Bearer $jwt")
+            val response = api.me()
             if (response.success) {
                 Result.success(true)
             } else {
                 Result.failure(Exception("Token inválido"))
             }
         } catch (e: HttpException) {
-            // 401 = token expirado/revocado
             Result.failure(Exception("Token expirado"))
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
-
 }

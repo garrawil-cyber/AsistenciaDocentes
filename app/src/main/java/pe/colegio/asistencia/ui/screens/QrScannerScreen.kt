@@ -5,7 +5,6 @@ package pe.colegio.asistencia.ui.screens
 import android.Manifest
 import android.util.Log
 import androidx.camera.core.CameraSelector
-import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
@@ -52,10 +51,8 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import pe.colegio.asistencia.data.repository.AsistenciaRepository
-import pe.colegio.asistencia.data.session.SessionManager
 import java.util.concurrent.Executors
 
 private const val TAG = "QrScanner"
@@ -71,7 +68,6 @@ fun QrScannerScreen(
 
     val cameraPermission = rememberPermissionState(Manifest.permission.CAMERA)
 
-    val session = remember { SessionManager(context) }
     val repo = remember { AsistenciaRepository() }
 
     var estado by remember { mutableStateOf("Buscando QR...") }
@@ -144,12 +140,7 @@ fun QrScannerScreen(
                                 }
 
                                 scope.launch {
-                                    val jwt = obtenerJwt(session)
-                                    if (jwt.isNullOrEmpty()) {
-                                        onResultado("❌ Sesión expirada. Vuelve a iniciar sesión.")
-                                        return@launch
-                                    }
-                                    val result = repo.marcar(qrToken, jwt)
+                                    val result = repo.marcar(qrToken)
                                     result.fold(
                                         onSuccess = { r ->
                                             val d = r.data
@@ -274,12 +265,4 @@ private fun procesarImagen(
         .addOnCompleteListener {
             imageProxy.close()      // Se cierra SIEMPRE, al final
         }
-}
-private suspend fun obtenerJwt(session: SessionManager): String? {
-    return try {
-        session.tokenFlow.first()
-    } catch (e: Exception) {
-        Log.e(TAG, "Error obteniendo JWT", e)
-        null
-    }
 }

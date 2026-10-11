@@ -10,11 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cd34372-e2a9-41a2-baf8-7316aca2c68b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/screens/SplashScreen.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/SplashViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/api/AuthInterceptor.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/api/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/api/ApiService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/api/RetrofitClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/api/RetrofitClient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AsistenciaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AsistenciaRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AuthRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/repository/AuthRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/screens/QrScannerScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/screens/QrScannerScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/HistorialViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/HistorialViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/SplashViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/SplashViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
