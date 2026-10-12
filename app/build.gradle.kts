@@ -13,8 +13,8 @@ android {
         applicationId = "pe.colegio.asistencia"
         minSdk = 24
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2  // 1: desarrollo, 2: primera distribución
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

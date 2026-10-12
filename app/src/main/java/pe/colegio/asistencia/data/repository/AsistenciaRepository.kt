@@ -2,6 +2,7 @@ package pe.colegio.asistencia.data.repository
 
 import com.google.gson.Gson
 import pe.colegio.asistencia.data.api.RetrofitClient
+import pe.colegio.asistencia.data.model.EstadoHoyResponse
 import pe.colegio.asistencia.data.model.HistorialResponse
 import pe.colegio.asistencia.data.model.MarcarRequest
 import pe.colegio.asistencia.data.model.MarcarResponse
@@ -75,4 +76,18 @@ class AsistenciaRepository {
             else -> "Error inesperado (código $code)."
         }
     }
+
+    suspend fun estadoHoy(): Result<EstadoHoyResponse> {
+        return try {
+            val response = api.estadoHoy()
+            if (response.success) {
+                Result.success(response)
+            } else {
+                Result.failure(Exception(response.message))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }
