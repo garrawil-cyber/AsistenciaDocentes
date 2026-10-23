@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Snackbar
@@ -33,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -72,7 +74,7 @@ fun HomeScreen(
                 vibrar(context, 100)
             }
 
-            // Recargar el estado del día
+            // Recargar el estado del día para actualizar la tarjeta y el botón
             viewModel.cargarEstadoHoy()
 
             // Mostrar snackbar
@@ -192,20 +194,41 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             if (esDocente) {
-                val (textoBoton, botonHabilitado) = when (uiState.estadoHoy?.estado) {
-                    "sin_marcar" -> "📷  Marcar Asistencia" to true
-                    "entrada_marcada" -> "📷  Marcar Salida" to true
-                    "completo" -> "✅  Ya marcaste hoy" to false
-                    else -> "📷  Marcar Asistencia" to true
+                // Lógica del Botón Dinámico
+                val estadoActual = uiState.estadoHoy?.estado
+
+                val (textoBoton, colorBoton, botonHabilitado) = when (estadoActual) {
+                    "sin_marcar" -> Triple("📷  Marcar Entrada", Color(0xFF4CAF50), true)
+                    "entrada_marcada" -> Triple("📷  Marcar Salida", Color(0xFFFF9800), true)
+                    "completo" -> Triple("✅  Jornada Completada", Color.Gray, false)
+                    else -> {
+                        if (uiState.sesionExpirada) {
+                            Triple("🔒  Sesión expirada (Re-login)", Color(0xFFE53935), true)
+                        } else {
+                            Triple("📷  Marcar Asistencia", MaterialTheme.colorScheme.primary, true)
+                        }
+                    }
                 }
 
                 Button(
-                    onClick = onMarcarAsistencia,
+                    onClick = {
+                        if (uiState.sesionExpirada) {
+                            onLogout() // Cierra sesión y va al login
+                        } else {
+                            onMarcarAsistencia()
+                        }
+                    },
                     enabled = botonHabilitado,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp),
-                    shape = RoundedCornerShape(14.dp)
+                    shape = RoundedCornerShape(14.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorBoton,
+                        contentColor = Color.White,
+                        disabledContainerColor = Color.LightGray,
+                        disabledContentColor = Color.DarkGray
+                    )
                 ) {
                     Text(textoBoton, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
                 }
@@ -221,8 +244,8 @@ fun HomeScreen(
                 ) {
                     Text("📋  Ver Historial", fontSize = 16.sp)
                 }
-
             } else {
+                // Panel para Admin / Coordinador
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -293,6 +316,10 @@ fun HomeScreen(
     }
 }
 
+// ==========================================
+// COMPONENTES Y FUNCIONES AUXILIARES
+// ==========================================
+
 @Composable
 private fun EstadoHoyCard(cargando: Boolean, estado: EstadoHoy?) {
     val colorEstado = when (estado?.estado) {
@@ -302,18 +329,11 @@ private fun EstadoHoyCard(cargando: Boolean, estado: EstadoHoy?) {
         else -> MaterialTheme.colorScheme.surfaceVariant
     }
 
-    val iconoTitulo = when (estado?.estado) {
-        "sin_marcar" -> "⏳"
-        "entrada_marcada" -> "🟢"
-        "completo" -> "✅"
-        else -> "ℹ️"
-    }
-
     val titulo = when (estado?.estado) {
-        "sin_marcar" -> "Aún no has marcado hoy"
-        "entrada_marcada" -> "Entrada registrada"
-        "completo" -> "Jornada completa"
-        else -> "Estado de hoy"
+        "sin_marcar" -> "⏳ Aún no has marcado hoy"
+        "entrada_marcada" -> "🟢 Entrada registrada"
+        "completo" -> "✅ Jornada completa"
+        else -> "ℹ️ Estado de hoy"
     }
 
     Box(
@@ -322,9 +342,21 @@ private fun EstadoHoyCard(cargando: Boolean, estado: EstadoHoy?) {
             .background(colorEstado, RoundedCornerShape(16.dp))
             .padding(18.dp)
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+
+            // Mostrar el Turno
+            if (estado?.turnoNombre != null) {
+                Text(
+                    text = "🕐 ${estado.turnoNombre}",
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+            }
+
             Text(
-                text = "$iconoTitulo  $titulo",
+                text = titulo,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 fontSize = 15.sp
@@ -337,20 +369,17 @@ private fun EstadoHoyCard(cargando: Boolean, estado: EstadoHoy?) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else if (estado != null) {
+                // Fila Entrada
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Text("⬇️ Entrada:", fontSize = 13.sp, fontWeight = FontWeight.Medium)
                     Text(
-                        "⬇️  Entrada:",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = estado.entrada?.let { formatearHora(it) } ?: "—",
+                        text = estado.horaEntrada?.let { formatearHora(it) } ?: "—",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (estado.entrada != null)
+                        color = if (estado.horaEntrada != null)
                             MaterialTheme.colorScheme.primary
                         else
                             MaterialTheme.colorScheme.onSurfaceVariant
@@ -365,20 +394,17 @@ private fun EstadoHoyCard(cargando: Boolean, estado: EstadoHoy?) {
                     }
                 }
 
+                // Fila Salida
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Text("⬆️ Salida:", fontSize = 13.sp, fontWeight = FontWeight.Medium)
                     Text(
-                        "⬆️  Salida:",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = estado.salida?.let { formatearHora(it) } ?: "—",
+                        text = estado.horaSalida?.let { formatearHora(it) } ?: "—",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (estado.salida != null)
+                        color = if (estado.horaSalida != null)
                             MaterialTheme.colorScheme.primary
                         else
                             MaterialTheme.colorScheme.onSurfaceVariant

@@ -9,11 +9,18 @@ data class EstadoHoyResponse(
 )
 
 data class EstadoHoy(
-    val estado: String,
-    val entrada: String?,
-    val salida: String?,
+    val estado: String, // "sin_marcar", "entrada_marcada", "completo"
+    val turno: String?, // "manana", "tarde"
+    @SerializedName("turno_nombre")
+    val turnoNombre: String?, // "Turno Mañana", "Turno Tarde"
+    @SerializedName("hora_entrada")
+    val horaEntrada: String?,
+    @SerializedName("hora_salida")
+    val horaSalida: String?,
     @SerializedName("minutos_tardanza")
     val minutosTardanza: Int,
     @SerializedName("estado_asistencia")
-    val estadoAsistencia: String?
+    val estadoAsistencia: String?,
+    @SerializedName("estado_salida")
+    val estadoSalida: String?
 )

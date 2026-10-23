@@ -14,7 +14,8 @@ import pe.colegio.asistencia.data.repository.AsistenciaRepository
 data class HomeUiState(
     val cargandoEstado: Boolean = false,
     val estadoHoy: EstadoHoy? = null,
-    val error: String? = null
+    val error: String? = null,
+    val sesionExpirada: Boolean = false // NUEVO
 )
 
 class HomeViewModel(app: Application) : AndroidViewModel(app) {
@@ -44,10 +45,14 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                     }
                 },
                 onFailure = { e ->
+                    val esErrorDeSesion = e.message?.contains("401", ignoreCase = true) == true
+                            || e.message?.contains("Unauthorized", ignoreCase = true) == true
+
                     _uiState.update {
                         it.copy(
                             cargandoEstado = false,
-                            error = e.message ?: "Error al cargar estado"
+                            error = e.message ?: "Error al cargar estado",
+                            sesionExpirada = esErrorDeSesion // NUEVO
                         )
                     }
                 }

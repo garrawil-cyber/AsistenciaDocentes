@@ -10,14 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cd34372-e2a9-41a2-baf8-7316aca2c68b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/release/app-release.apk" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/app-release.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/release/mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_de_datos/control_asistencia_docentes.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_de_datos/mapa_del_sistema_de_asistencia_Docentes.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/distribucion/asistencia-docentes-v1.0.0.apk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/keystore/keystore.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/model/EstadoHoyResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/data/model/EstadoHoyResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/screens/HomeScreen.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/HomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pe/colegio/asistencia/ui/viewmodel/HomeViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribucion/Asistencia_Docentes.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribucion/app-Colegio-Asistencia.apk" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +29,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[LocalEmulator::path=C:\Users\garra\.android\avd\Medium_Phone.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=570adc8b0504]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -173,7 +175,7 @@
       </method>
     </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="AsistenciaDocentes.app.androidTest" />
+      <module name="AsistenciaDocentes.app.main" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
